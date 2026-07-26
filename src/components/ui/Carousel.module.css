@@ -1,0 +1,95 @@
+.carousel {
+  width: 100%;
+}
+
+.track {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0F0E0D;
+  aspect-ratio: 16 / 9;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 28px 32px;
+  background: linear-gradient(to top, rgba(10, 10, 9, 0.82), transparent);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #F4F2EE;
+  z-index: 2;
+}
+
+.navBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(244, 242, 238, 0.12);
+  border: 1px solid rgba(244, 242, 238, 0.25);
+  color: #F4F2EE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 22px;
+  line-height: 1;
+  transition: background 0.25s ease, transform 0.25s ease;
+  z-index: 3;
+}
+
+.navBtn:hover {
+  background: rgba(244, 242, 238, 0.22);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.prev { left: 18px; }
+.next { right: 18px; }
+
+.dots {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--stone-line);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.dotActive {
+  background: var(--accent);
+  width: 24px;
+  border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+  .navBtn {
+    width: 36px;
+    height: 36px;
+    font-size: 17px;
+  }
+
+  .caption {
+    padding: 18px 20px;
+    font-size: 12px;
+  }
+}

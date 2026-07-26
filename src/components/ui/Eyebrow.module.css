@@ -1,0 +1,26 @@
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--stone);
+  flex-shrink: 0;
+}
+
+.light {
+  color: #B8B2A6;
+}
+
+.light::before {
+  background: #B8B2A6;
+}
