@@ -1,0 +1,24 @@
+{
+  "name": "igreja-batista-da-graca",
+  "version": "1.0.0",
+  "description": "Website da Igreja Batista da Graça",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build required'",
+    "test": "echo 'No tests configured'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LipeProgramer/Igreja-Batista-da-Gra-a.git"
+  },
+  "keywords": ["church", "website", "static"],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LipeProgramer/Igreja-Batista-da-Gra-a/issues"
+  },
+  "homepage": "https://github.com/LipeProgramer/Igreja-Batista-da-Gra-a#readme",
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
+  }
+}
