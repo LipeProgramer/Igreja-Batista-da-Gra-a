@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Igreja Batista da Graça</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#161514;
+    --paper:#F4F2EE;
+    --paper-2:#EAE7E0;
+    --stone:#8B867C;
+    --stone-line: rgba(22,21,20,0.14);
+    --accent:#8B7355;
+    --radius: 2px;
+    --ff-display: 'Fraunces', serif;
+    --ff-body: 'Inter', sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--ff-body);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  a{color:inherit; text-decoration:none;}
+
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(244,242,238,0.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--stone-line);
+  }
+  .nav-inner{
+    max-width:1180px; margin:0 auto; padding:20px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-mark{
+    font-family:var(--ff-display); font-weight:500; font-size:17px;
+    letter-spacing:0.02em;
+  }
+  .nav-mark span{color:var(--stone);}
+  .nav-links{display:flex; gap:36px; font-size:13px; letter-spacing:0.06em; text-transform:uppercase;}
+  .nav-links a{opacity:0.7; transition:opacity 0.25s ease;}
+  .nav-links a:hover{opacity:1;}
+  .nav-links a:focus-visible, a:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+  @media (max-width:720px){ .nav-links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    padding:180px 0 120px;
+    position:relative;
+  }
+  .eyebrow{
+    font-size:12px; letter-spacing:0.22em; text-transform:uppercase;
+    color:var(--stone); margin-bottom:28px;
+    display:flex; align-items:center; gap:12px;
+  }
+  .eyebrow::before{content:''; width:28px; height:1px; background:var(--stone);}
+
+  h1.title{
+    font-family:var(--ff-display);
+    font-weight:400;
+    font-size:clamp(44px, 8vw, 96px);
+    line-height:0.98;
+    letter-spacing:-0.01em;
+    max-width:900px;
+  }
+  h1.title em{
+    font-style:italic; font-weight:300; color:var(--accent);
+  }
+
+  .hero-sub{
+    margin-top:28px;
+    max-width:480px;
+    font-size:17px;
+    line-height:1.6;
+    color:#454340;
+  }
+
+  .hero-cta{
+    margin-top:44px;
+    display:flex; gap:16px; flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:15px 28px;
+    font-size:13px; letter-spacing:0.05em; text-transform:uppercase;
+    border-radius:var(--radius);
+    transition:all 0.25s ease;
+  }
+  .btn-primary{
+    background:var(--ink); color:var(--paper);
+  }
+  .btn-primary:hover{background:var(--accent);}
+  .btn-ghost{
+    border:1px solid var(--stone-line);
+  }
+  .btn-ghost:hover{border-color:var(--ink);}
+
+  /* signature schedule block */
+  .schedule-mark{
+    margin-top:100px;
+    display:grid;
+    grid-template-columns: auto 1fr;
+    gap:40px;
+    align-items:end;
+    border-top:1px solid var(--stone-line);
+    padding-top:36px;
+  }
+  .schedule-time{
+    font-family:var(--ff-display);
+    font-weight:300;
+    font-size:clamp(60px, 12vw, 140px);
+    line-height:0.85;
+    letter-spacing:-0.02em;
+    white-space:nowrap;
+  }
+  .schedule-time sup{font-size:0.32em; font-weight:400; color:var(--accent); top:-0.6em;}
+  .schedule-meta{
+    font-size:13px; letter-spacing:0.05em; text-transform:uppercase;
+    color:var(--stone);
+    line-height:1.9;
+    padding-bottom:12px;
+  }
+  .schedule-meta strong{display:block; color:var(--ink); font-size:15px; letter-spacing:0.02em; margin-bottom:6px;}
+
+  @media (max-width:640px){
+    .schedule-mark{grid-template-columns:1fr; gap:16px;}
+  }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:110px 0;}
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:24px; margin-bottom:64px; flex-wrap:wrap;
+  }
+  .section-head .eyebrow{margin-bottom:14px;}
+  h2.section-title{
+    font-family:var(--ff-display); font-weight:400;
+    font-size:clamp(30px,4vw,48px); letter-spacing:-0.01em; max-width:560px;
+  }
+  .section-note{max-width:320px; font-size:14px; color:var(--stone); line-height:1.6;}
+
+  hr.rule{border:none; border-top:1px solid var(--stone-line);}
+
+  /* ---------- SOBRE ---------- */
+  .about{background:var(--paper-2);}
+  .about-grid{
+    display:grid; grid-template-columns: 1.1fr 1fr; gap:80px;
+  }
+  .about-lead{
+    font-family:var(--ff-display); font-weight:400;
+    font-size:clamp(24px,3vw,32px); line-height:1.35;
+  }
+  .about-lead em{font-style:italic; color:var(--accent);}
+  .about-list{margin-top:40px; display:flex; flex-direction:column; gap:0;}
+  .about-list .row{
+    display:flex; justify-content:space-between; padding:18px 0;
+    border-top:1px solid var(--stone-line);
+    font-size:14px;
+  }
+  .about-list .row:last-child{border-bottom:1px solid var(--stone-line);}
+  .about-list .row span:first-child{color:var(--stone); text-transform:uppercase; letter-spacing:0.05em; font-size:12px;}
+  @media (max-width:840px){ .about-grid{grid-template-columns:1fr; gap:48px;} }
+
+  /* ---------- CULTOS ---------- */
+  .services-list{display:flex; flex-direction:column;}
+  .service-row{
+    display:grid; grid-template-columns: 100px 1fr auto;
+    align-items:center; gap:32px;
+    padding:34px 0; border-top:1px solid var(--stone-line);
+  }
+  .services-list .service-row:last-child{border-bottom:1px solid var(--stone-line);}
+  .service-day{
+    font-family:var(--ff-display); font-size:15px; letter-spacing:0.04em;
+    text-transform:uppercase; color:var(--stone);
+  }
+  .service-name{font-size:20px; font-weight:500;}
+  .service-name small{display:block; font-family:var(--ff-body); font-weight:400; font-size:13px; color:var(--stone); margin-top:4px;}
+  .service-time{
+    font-family:var(--ff-display); font-size:26px; font-weight:400; white-space:nowrap;
+  }
+  @media (max-width:600px){
+    .service-row{grid-template-columns:1fr; gap:6px; padding:24px 0;}
+    .service-time{font-size:20px;}
+  }
+
+  /* ---------- LOCAL ---------- */
+  .local{background:var(--ink); color:var(--paper);}
+  .local .eyebrow{color:#B8B2A6;}
+  .local .eyebrow::before{background:#B8B2A6;}
+  .local-grid{
+    display:grid; grid-template-columns: 1fr 1fr; gap:80px; align-items:start;
+  }
+  .local-address{
+    font-family:var(--ff-display); font-weight:400;
+    font-size:clamp(26px,3.4vw,36px); line-height:1.4;
+  }
+  .local-details{margin-top:32px; display:flex; flex-direction:column; gap:16px; font-size:14px; color:#C9C4B8;}
+  .map-frame{
+    border-radius:var(--radius); overflow:hidden; border:1px solid rgba(244,242,238,0.16);
+    aspect-ratio:4/3.2;
+  }
+  .map-frame iframe{width:100%; height:100%; border:0; filter:grayscale(1) contrast(1.05) brightness(0.9);}
+  @media (max-width:840px){ .local-grid{grid-template-columns:1fr; gap:44px;} }
+
+  /* ---------- CONTATO / FOOTER ---------- */
+  footer{padding:90px 0 50px;}
+  .footer-cta{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    padding-bottom:60px; border-bottom:1px solid var(--stone-line);
+    flex-wrap:wrap; gap:32px;
+  }
+  .footer-cta h3{
+    font-family:var(--ff-display); font-weight:400;
+    font-size:clamp(28px,4vw,44px); max-width:480px; line-height:1.15;
+  }
+  .footer-bottom{
+    margin-top:36px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;
+    font-size:12px; color:var(--stone); letter-spacing:0.03em;
+  }
+  .footer-links{display:flex; gap:28px;}
+  .footer-links a{opacity:0.75;}
+  .footer-links a:hover{opacity:1; color:var(--accent);}
+
+  /* fade-in on scroll */
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity 0.7s ease, transform 0.7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-mark">Igreja Batista <span>da Graça</span></div>
+    <div class="nav-links">
+      <a href="#sobre">Sobre</a>
+      <a href="#cultos">Cultos</a>
+      <a href="#local">Local</a>
+      <a href="#contato">Contato</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Maringá · Paraná</div>
+    <h1 class="title">Um lugar simples<br>para uma fé <em>viva</em>.</h1>
+    <p class="hero-sub">A Igreja Batista da Graça é uma comunidade aberta a quem busca, questiona e quer crescer. Venha como estiver — o próximo culto é sempre um bom lugar para começar.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#cultos">Ver horário de culto</a>
+      <a class="btn btn-ghost" href="#local">Como chegar</a>
+    </div>
+
+    <div class="schedule-mark reveal">
+      <div class="schedule-time">18<sup>h30</sup></div>
+      <div class="schedule-meta">
+        <strong>Culto de domingo</strong>
+        Das 18h30 às 20h00<br>
+        Rua das Tipuanas, 924 — Maringá/PR
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="about" id="sobre">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="eyebrow">Quem somos</div>
+        <p class="about-lead">Uma igreja <em>pequena em tamanho</em>, mas séria no cuidado com as pessoas e com a Palavra.</p>
+        <p style="margin-top:24px; color:#454340; font-size:15px; line-height:1.7; max-width:440px;">
+          Seguimos a tradição batista: autonomia da igreja local, centralidade das Escrituras e liberdade de consciência. Estamos em um momento de transição — sem pastor titular no momento — e isso não nos impede de continuar nos reunindo, servindo e crescendo juntos.
+        </p>
+      </div>
+      <div class="reveal">
+        <div class="about-list">
+          <div class="row"><span>Tradição</span><span>Batista</span></div>
+          <div class="row"><span>Fundação</span><span>Comunidade local</span></div>
+          <div class="row"><span>Pastor titular</span><span>Em transição</span></div>
+          <div class="row"><span>Cultos</span><span>Domingo, 18h30</span></div>
+          <div class="row"><span>Localização</span><span>Maringá, PR</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cultos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">Programação</div>
+        <h2 class="section-title">Horários de culto</h2>
+      </div>
+      <p class="section-note">Por enquanto, nossa programação regular acontece aos domingos. Novos horários serão adicionados conforme a igreja crescer.</p>
+    </div>
+
+    <div class="services-list reveal">
+      <div class="service-row">
+        <div class="service-day">Domingo</div>
+        <div class="service-name">Culto de Celebração<small>Louvor, palavra e comunhão</small></div>
+        <div class="service-time">18h30 — 20h00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="local" id="local">
+  <div class="wrap">
+    <div class="local-grid">
+      <div class="reveal">
+        <div class="eyebrow">Onde estamos</div>
+        <p class="local-address">Rua das Tipuanas, 924<br>Maringá — PR<br>87060-130</p>
+        <div class="local-details">
+          <span>Estacionamento próximo ao templo</span>
+          <span>Acesso fácil pela Av. Tuiuti</span>
+        </div>
+        <div class="hero-cta" style="margin-top:36px;">
+          <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&query=Rua+das+Tipuanas+924+Maring%C3%A1+Paran%C3%A1" target="_blank" rel="noopener">Abrir no mapa</a>
+        </div>
+      </div>
+      <div class="map-frame reveal">
+        <iframe
+          loading="lazy"
+          src="https://maps.google.com/maps?q=Rua%20das%20Tipuanas%2C%20924%2C%20Maring%C3%A1%2C%20Paran%C3%A1&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contato">
+  <div class="wrap">
+    <div class="footer-cta reveal">
+      <h3>Toda semana tem um lugar reservado pra você.</h3>
+      <a class="btn btn-primary" href="#cultos">Ver horário de culto</a>
+    </div>
+    <div class="footer-bottom">
+      <span>Igreja Batista da Graça — Maringá, PR</span>
+      <div class="footer-links">
+        <a href="#sobre">Sobre</a>
+        <a href="#cultos">Cultos</a>
+        <a href="#local">Local</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
