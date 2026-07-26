@@ -31,11 +31,10 @@
   }
 
   @media (prefers-reduced-motion: reduce){
-    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important; animation-iteration-count:1 !important;}
   }
 
   a{color:inherit; text-decoration:none;}
-
   .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
 
   /* ---------- NAV ---------- */
@@ -44,16 +43,20 @@
     background:rgba(244,242,238,0.86);
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--stone-line);
+    animation:navIn 0.8s ease both;
   }
+  @keyframes navIn{from{transform:translateY(-100%);} to{transform:translateY(0);}}
   .nav-inner{
-    max-width:1180px; margin:0 auto; padding:20px 32px;
+    max-width:1180px; margin:0 auto; padding:14px 32px;
     display:flex; align-items:center; justify-content:space-between;
   }
+  .nav-brand{display:flex; align-items:center; gap:12px;}
+  .nav-brand img{height:38px; width:auto; display:block;}
   .nav-mark{
-    font-family:var(--ff-display); font-weight:500; font-size:17px;
-    letter-spacing:0.02em;
+    font-family:var(--ff-display); font-weight:500; font-size:16px;
+    letter-spacing:0.02em; line-height:1.15;
   }
-  .nav-mark span{color:var(--stone);}
+  .nav-mark span{display:block; font-family:var(--ff-body); font-weight:400; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--stone); margin-top:2px;}
   .nav-links{display:flex; gap:36px; font-size:13px; letter-spacing:0.06em; text-transform:uppercase;}
   .nav-links a{opacity:0.7; transition:opacity 0.25s ease;}
   .nav-links a:hover{opacity:1;}
@@ -62,15 +65,41 @@
 
   /* ---------- HERO ---------- */
   header.hero{
-    padding:180px 0 120px;
+    padding:170px 0 100px;
     position:relative;
+    overflow:hidden;
   }
+  .hero-orbit{
+    position:absolute; top:-180px; right:-180px; width:560px; height:560px;
+    border-radius:50%; border:1px solid var(--stone-line);
+    animation:spin 60s linear infinite;
+    pointer-events:none;
+  }
+  .hero-orbit::before{
+    content:''; position:absolute; inset:60px; border-radius:50%; border:1px solid var(--stone-line);
+  }
+  .hero-orbit::after{
+    content:''; position:absolute; top:50%; left:-4px; width:8px; height:8px; margin-top:-4px;
+    background:var(--accent); border-radius:50%;
+  }
+  @keyframes spin{from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
+
   .eyebrow{
     font-size:12px; letter-spacing:0.22em; text-transform:uppercase;
     color:var(--stone); margin-bottom:28px;
     display:flex; align-items:center; gap:12px;
   }
   .eyebrow::before{content:''; width:28px; height:1px; background:var(--stone);}
+
+  .hero-in{
+    opacity:0; transform:translateY(28px);
+    animation:heroIn 0.9s cubic-bezier(.16,.8,.24,1) forwards;
+  }
+  .hero-in.d1{animation-delay:0.05s;}
+  .hero-in.d2{animation-delay:0.22s;}
+  .hero-in.d3{animation-delay:0.38s;}
+  .hero-in.d4{animation-delay:0.54s;}
+  @keyframes heroIn{to{opacity:1; transform:translateY(0);}}
 
   h1.title{
     font-family:var(--ff-display);
@@ -80,160 +109,137 @@
     letter-spacing:-0.01em;
     max-width:900px;
   }
-  h1.title em{
-    font-style:italic; font-weight:300; color:var(--accent);
-  }
+  h1.title em{font-style:italic; font-weight:300; color:var(--accent); position:relative;}
 
-  .hero-sub{
-    margin-top:28px;
-    max-width:480px;
-    font-size:17px;
-    line-height:1.6;
-    color:#454340;
-  }
+  .hero-sub{margin-top:28px; max-width:480px; font-size:17px; line-height:1.6; color:#454340;}
 
-  .hero-cta{
-    margin-top:44px;
-    display:flex; gap:16px; flex-wrap:wrap;
-  }
+  .hero-cta{margin-top:44px; display:flex; gap:16px; flex-wrap:wrap;}
   .btn{
     display:inline-flex; align-items:center; gap:10px;
-    padding:15px 28px;
-    font-size:13px; letter-spacing:0.05em; text-transform:uppercase;
-    border-radius:var(--radius);
-    transition:all 0.25s ease;
+    padding:15px 28px; font-size:13px; letter-spacing:0.05em; text-transform:uppercase;
+    border-radius:var(--radius); transition:all 0.25s ease;
   }
-  .btn-primary{
-    background:var(--ink); color:var(--paper);
-  }
-  .btn-primary:hover{background:var(--accent);}
-  .btn-ghost{
-    border:1px solid var(--stone-line);
-  }
-  .btn-ghost:hover{border-color:var(--ink);}
+  .btn-primary{background:var(--ink); color:var(--paper);}
+  .btn-primary:hover{background:var(--accent); transform:translateY(-2px);}
+  .btn-ghost{border:1px solid var(--stone-line);}
+  .btn-ghost:hover{border-color:var(--ink); transform:translateY(-2px);}
 
-  /* signature schedule block */
   .schedule-mark{
-    margin-top:100px;
-    display:grid;
-    grid-template-columns: auto 1fr;
-    gap:40px;
-    align-items:end;
-    border-top:1px solid var(--stone-line);
-    padding-top:36px;
+    margin-top:100px; display:grid; grid-template-columns:auto 1fr; gap:40px; align-items:end;
+    border-top:1px solid var(--stone-line); padding-top:36px;
   }
   .schedule-time{
-    font-family:var(--ff-display);
-    font-weight:300;
-    font-size:clamp(60px, 12vw, 140px);
-    line-height:0.85;
-    letter-spacing:-0.02em;
-    white-space:nowrap;
+    font-family:var(--ff-display); font-weight:300; font-size:clamp(60px, 12vw, 140px);
+    line-height:0.85; letter-spacing:-0.02em; white-space:nowrap;
   }
   .schedule-time sup{font-size:0.32em; font-weight:400; color:var(--accent); top:-0.6em;}
-  .schedule-meta{
-    font-size:13px; letter-spacing:0.05em; text-transform:uppercase;
-    color:var(--stone);
-    line-height:1.9;
-    padding-bottom:12px;
-  }
+  .schedule-meta{font-size:13px; letter-spacing:0.05em; text-transform:uppercase; color:var(--stone); line-height:1.9; padding-bottom:12px;}
   .schedule-meta strong{display:block; color:var(--ink); font-size:15px; letter-spacing:0.02em; margin-bottom:6px;}
-
-  @media (max-width:640px){
-    .schedule-mark{grid-template-columns:1fr; gap:16px;}
-  }
+  @media (max-width:640px){ .schedule-mark{grid-template-columns:1fr; gap:16px;} .hero-orbit{display:none;} }
 
   /* ---------- SECTION SHARED ---------- */
   section{padding:110px 0;}
-  .section-head{
-    display:flex; justify-content:space-between; align-items:flex-end;
-    gap:24px; margin-bottom:64px; flex-wrap:wrap;
-  }
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:64px; flex-wrap:wrap;}
   .section-head .eyebrow{margin-bottom:14px;}
-  h2.section-title{
-    font-family:var(--ff-display); font-weight:400;
-    font-size:clamp(30px,4vw,48px); letter-spacing:-0.01em; max-width:560px;
-  }
+  h2.section-title{font-family:var(--ff-display); font-weight:400; font-size:clamp(30px,4vw,48px); letter-spacing:-0.01em; max-width:560px;}
   .section-note{max-width:320px; font-size:14px; color:var(--stone); line-height:1.6;}
-
-  hr.rule{border:none; border-top:1px solid var(--stone-line);}
 
   /* ---------- SOBRE ---------- */
   .about{background:var(--paper-2);}
-  .about-grid{
-    display:grid; grid-template-columns: 1.1fr 1fr; gap:80px;
-  }
-  .about-lead{
-    font-family:var(--ff-display); font-weight:400;
-    font-size:clamp(24px,3vw,32px); line-height:1.35;
-  }
+  .about-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:80px;}
+  .about-lead{font-family:var(--ff-display); font-weight:400; font-size:clamp(24px,3vw,32px); line-height:1.35;}
   .about-lead em{font-style:italic; color:var(--accent);}
-  .about-list{margin-top:40px; display:flex; flex-direction:column; gap:0;}
-  .about-list .row{
-    display:flex; justify-content:space-between; padding:18px 0;
-    border-top:1px solid var(--stone-line);
-    font-size:14px;
-  }
+  .about-list{margin-top:40px; display:flex; flex-direction:column;}
+  .about-list .row{display:flex; justify-content:space-between; padding:18px 0; border-top:1px solid var(--stone-line); font-size:14px; transition:padding-left 0.3s ease;}
+  .about-list .row:hover{padding-left:8px;}
   .about-list .row:last-child{border-bottom:1px solid var(--stone-line);}
   .about-list .row span:first-child{color:var(--stone); text-transform:uppercase; letter-spacing:0.05em; font-size:12px;}
   @media (max-width:840px){ .about-grid{grid-template-columns:1fr; gap:48px;} }
 
   /* ---------- CULTOS ---------- */
-  .services-list{display:flex; flex-direction:column;}
-  .service-row{
-    display:grid; grid-template-columns: 100px 1fr auto;
-    align-items:center; gap:32px;
-    padding:34px 0; border-top:1px solid var(--stone-line);
-  }
+  .service-row{display:grid; grid-template-columns:100px 1fr auto; align-items:center; gap:32px; padding:34px 0; border-top:1px solid var(--stone-line); transition:padding-left 0.3s ease;}
   .services-list .service-row:last-child{border-bottom:1px solid var(--stone-line);}
-  .service-day{
-    font-family:var(--ff-display); font-size:15px; letter-spacing:0.04em;
-    text-transform:uppercase; color:var(--stone);
-  }
+  .service-row:hover{padding-left:8px;}
+  .service-day{font-family:var(--ff-display); font-size:15px; letter-spacing:0.04em; text-transform:uppercase; color:var(--stone);}
   .service-name{font-size:20px; font-weight:500;}
   .service-name small{display:block; font-family:var(--ff-body); font-weight:400; font-size:13px; color:var(--stone); margin-top:4px;}
-  .service-time{
-    font-family:var(--ff-display); font-size:26px; font-weight:400; white-space:nowrap;
+  .service-time{font-family:var(--ff-display); font-size:26px; font-weight:400; white-space:nowrap;}
+  @media (max-width:600px){ .service-row{grid-template-columns:1fr; gap:6px; padding:24px 0;} .service-time{font-size:20px;} }
+
+  /* ---------- GALERIA / CARROSSEL ---------- */
+  .galeria{background:var(--ink); color:var(--paper);}
+  .galeria .eyebrow{color:#B8B2A6;}
+  .galeria .eyebrow::before{background:#B8B2A6;}
+  .galeria .section-note{color:#9C9689;}
+
+  .carousel{
+    position:relative;
+    border-radius:6px;
+    overflow:hidden;
+    background:#0F0E0D;
   }
+  .carousel-track{
+    display:flex;
+    transition:transform 0.65s cubic-bezier(.65,0,.35,1);
+    will-change:transform;
+  }
+  .carousel-slide{
+    position:relative;
+    min-width:100%;
+    aspect-ratio:16/9;
+  }
+  .carousel-slide img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    filter:grayscale(0.15) contrast(1.03);
+  }
+  .carousel-slide .caption{
+    position:absolute; left:0; right:0; bottom:0;
+    padding:28px 32px;
+    background:linear-gradient(to top, rgba(10,10,9,0.82), transparent);
+    font-size:14px; letter-spacing:0.04em; text-transform:uppercase;
+  }
+  .carousel-nav{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:44px; height:44px; border-radius:50%;
+    background:rgba(244,242,238,0.12);
+    border:1px solid rgba(244,242,238,0.25);
+    color:var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:all 0.25s ease;
+    font-size:18px;
+  }
+  .carousel-nav:hover{background:rgba(244,242,238,0.22); transform:translateY(-50%) scale(1.08);}
+  .carousel-nav.prev{left:18px;}
+  .carousel-nav.next{right:18px;}
+  .carousel-dots{
+    display:flex; gap:10px; justify-content:center; margin-top:24px;
+  }
+  .carousel-dots button{
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(244,242,238,0.28);
+    border:none; cursor:pointer; padding:0;
+    transition:all 0.3s ease;
+  }
+  .carousel-dots button.active{background:var(--accent); width:24px; border-radius:4px;}
   @media (max-width:600px){
-    .service-row{grid-template-columns:1fr; gap:6px; padding:24px 0;}
-    .service-time{font-size:20px;}
+    .carousel-nav{width:36px; height:36px; font-size:15px;}
+    .carousel-slide .caption{padding:18px 20px; font-size:12px;}
   }
 
   /* ---------- LOCAL ---------- */
-  .local{background:var(--ink); color:var(--paper);}
-  .local .eyebrow{color:#B8B2A6;}
-  .local .eyebrow::before{background:#B8B2A6;}
-  .local-grid{
-    display:grid; grid-template-columns: 1fr 1fr; gap:80px; align-items:start;
-  }
-  .local-address{
-    font-family:var(--ff-display); font-weight:400;
-    font-size:clamp(26px,3.4vw,36px); line-height:1.4;
-  }
-  .local-details{margin-top:32px; display:flex; flex-direction:column; gap:16px; font-size:14px; color:#C9C4B8;}
-  .map-frame{
-    border-radius:var(--radius); overflow:hidden; border:1px solid rgba(244,242,238,0.16);
-    aspect-ratio:4/3.2;
-  }
-  .map-frame iframe{width:100%; height:100%; border:0; filter:grayscale(1) contrast(1.05) brightness(0.9);}
+  .local{background:var(--paper-2);}
+  .local-grid{display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;}
+  .local-address{font-family:var(--ff-display); font-weight:400; font-size:clamp(26px,3.4vw,36px); line-height:1.4;}
+  .local-details{margin-top:32px; display:flex; flex-direction:column; gap:16px; font-size:14px; color:var(--stone);}
+  .map-frame{border-radius:var(--radius); overflow:hidden; border:1px solid var(--stone-line); aspect-ratio:4/3.2;}
+  .map-frame iframe{width:100%; height:100%; border:0; filter:grayscale(1) contrast(1.05) brightness(0.98);}
   @media (max-width:840px){ .local-grid{grid-template-columns:1fr; gap:44px;} }
 
-  /* ---------- CONTATO / FOOTER ---------- */
+  /* ---------- FOOTER ---------- */
   footer{padding:90px 0 50px;}
-  .footer-cta{
-    display:flex; justify-content:space-between; align-items:flex-end;
-    padding-bottom:60px; border-bottom:1px solid var(--stone-line);
-    flex-wrap:wrap; gap:32px;
-  }
-  .footer-cta h3{
-    font-family:var(--ff-display); font-weight:400;
-    font-size:clamp(28px,4vw,44px); max-width:480px; line-height:1.15;
-  }
-  .footer-bottom{
-    margin-top:36px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;
-    font-size:12px; color:var(--stone); letter-spacing:0.03em;
-  }
+  .footer-cta{display:flex; justify-content:space-between; align-items:flex-end; padding-bottom:60px; border-bottom:1px solid var(--stone-line); flex-wrap:wrap; gap:32px;}
+  .footer-cta h3{font-family:var(--ff-display); font-weight:400; font-size:clamp(28px,4vw,44px); max-width:480px; line-height:1.15;}
+  .footer-bottom{margin-top:36px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; font-size:12px; color:var(--stone); letter-spacing:0.03em;}
   .footer-links{display:flex; gap:28px;}
   .footer-links a{opacity:0.75;}
   .footer-links a:hover{opacity:1; color:var(--accent);}
@@ -247,22 +253,26 @@
 
 <nav>
   <div class="nav-inner">
-    <div class="nav-mark">Igreja Batista <span>da Graça</span></div>
+    <div class="nav-brand">
+      <img src="assets/logo-preta.png" alt="Igreja Batista da Graça">
+      <div class="nav-mark">Igreja Batista da Graça<span>Maringá · PR</span></div>
+    </div>
     <div class="nav-links">
       <a href="#sobre">Sobre</a>
       <a href="#cultos">Cultos</a>
+      <a href="#galeria">Galeria</a>
       <a href="#local">Local</a>
-      <a href="#contato">Contato</a>
     </div>
   </div>
 </nav>
 
 <header class="hero">
+  <div class="hero-orbit"></div>
   <div class="wrap">
-    <div class="eyebrow">Maringá · Paraná</div>
-    <h1 class="title">Um lugar simples<br>para uma fé <em>viva</em>.</h1>
-    <p class="hero-sub">A Igreja Batista da Graça é uma comunidade aberta a quem busca, questiona e quer crescer. Venha como estiver — o próximo culto é sempre um bom lugar para começar.</p>
-    <div class="hero-cta">
+    <div class="eyebrow hero-in d1">Maringá · Paraná</div>
+    <h1 class="title hero-in d2">Um lugar simples<br>para uma fé <em>viva</em>.</h1>
+    <p class="hero-sub hero-in d3">A Igreja Batista da Graça é uma comunidade aberta a quem busca, questiona e quer crescer. Venha como estiver — o próximo culto é sempre um bom lugar para começar.</p>
+    <div class="hero-cta hero-in d4">
       <a class="btn btn-primary" href="#cultos">Ver horário de culto</a>
       <a class="btn btn-ghost" href="#local">Como chegar</a>
     </div>
@@ -310,7 +320,6 @@
       </div>
       <p class="section-note">Por enquanto, nossa programação regular acontece aos domingos. Novos horários serão adicionados conforme a igreja crescer.</p>
     </div>
-
     <div class="services-list reveal">
       <div class="service-row">
         <div class="service-day">Domingo</div>
@@ -318,6 +327,25 @@
         <div class="service-time">18h30 — 20h00</div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="galeria" id="galeria">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">Galeria</div>
+        <h2 class="section-title">Momentos da nossa igreja</h2>
+      </div>
+      <p class="section-note">Fotos atualizadas mensalmente — cultos, encontros e a estrutura do templo.</p>
+    </div>
+
+    <div class="carousel reveal" id="carousel">
+      <div class="carousel-track" id="carouselTrack"></div>
+      <button class="carousel-nav prev" id="prevBtn" aria-label="Foto anterior">&#8249;</button>
+      <button class="carousel-nav next" id="nextBtn" aria-label="Próxima foto">&#8250;</button>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
   </div>
 </section>
 
@@ -356,6 +384,7 @@
       <div class="footer-links">
         <a href="#sobre">Sobre</a>
         <a href="#cultos">Cultos</a>
+        <a href="#galeria">Galeria</a>
         <a href="#local">Local</a>
       </div>
     </div>
@@ -363,13 +392,100 @@
 </footer>
 
 <script>
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-    });
-  }, {threshold:0.15});
-  revealEls.forEach(el=>io.observe(el));
+/* ============================================================
+   GALERIA DE FOTOS — COMO ATUALIZAR TODO MÊS
+   ------------------------------------------------------------
+   1) Coloque os arquivos de foto na pasta /assets/fotos/
+      (qualquer nome de arquivo serve, ex: culto-julho.jpg)
+   2) Adicione, remova ou troque as linhas da lista abaixo.
+      Cada linha = uma foto do carrossel, com:
+        src     -> caminho do arquivo dentro de /assets/fotos/
+        legenda -> texto que aparece embaixo da foto
+   3) Não precisa mexer em mais nada no código — o carrossel,
+      os pontinhos e as setas são gerados automaticamente
+      a partir desta lista, na ordem em que aparecem aqui.
+   ============================================================ */
+   const GALERIA_FOTOS = [
+     { src: 'assets/fotos/foto-01.jpg', legenda: 'Culto de domingo' },
+     { src: 'assets/fotos/foto-02.jpg', legenda: 'Momento de louvor' },
+     { src: 'assets/fotos/foto-03.jpg', legenda: 'Comunhão da igreja' },
+     { src: 'assets/fotos/foto-04.jpg', legenda: 'Estrutura do templo' },
+     { src: 'assets/fotos/foto-05.jpg', legenda: 'Vida em comunidade' },
+   ];
+/* ============================================================ */
+
+(function(){
+  const track = document.getElementById('carouselTrack');
+  const dotsWrap = document.getElementById('carouselDots');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const carousel = document.getElementById('carousel');
+  let current = 0;
+  let timer = null;
+  const AUTOPLAY_MS = 5000;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  GALERIA_FOTOS.forEach((foto) => {
+    const slide = document.createElement('div');
+    slide.className = 'carousel-slide';
+    slide.innerHTML = `<img src="${foto.src}" alt="${foto.legenda}" loading="lazy"><div class="caption">${foto.legenda}</div>`;
+    track.appendChild(slide);
+  });
+
+  GALERIA_FOTOS.forEach((_, i) => {
+    const dot = document.createElement('button');
+    if(i === 0) dot.classList.add('active');
+    dot.setAttribute('aria-label', 'Ir para foto ' + (i+1));
+    dot.addEventListener('click', () => goTo(i, true));
+    dotsWrap.appendChild(dot);
+  });
+
+  function render(){
+    track.style.transform = `translateX(-${current * 100}%)`;
+    [...dotsWrap.children].forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+  function goTo(i, manual){
+    current = (i + GALERIA_FOTOS.length) % GALERIA_FOTOS.length;
+    render();
+    if(manual) restartAutoplay();
+  }
+  function next(){ goTo(current + 1); }
+  function prev(){ goTo(current - 1); }
+
+  function startAutoplay(){
+    if(reducedMotion || GALERIA_FOTOS.length < 2) return;
+    timer = setInterval(next, AUTOPLAY_MS);
+  }
+  function restartAutoplay(){
+    clearInterval(timer);
+    startAutoplay();
+  }
+
+  nextBtn.addEventListener('click', () => goTo(current + 1, true));
+  prevBtn.addEventListener('click', () => goTo(current - 1, true));
+  carousel.addEventListener('mouseenter', () => clearInterval(timer));
+  carousel.addEventListener('mouseleave', startAutoplay);
+
+  // swipe support
+  let touchStartX = 0;
+  carousel.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, {passive:true});
+  carousel.addEventListener('touchend', (e) => {
+    const delta = e.changedTouches[0].clientX - touchStartX;
+    if(Math.abs(delta) > 40){ delta < 0 ? goTo(current+1, true) : goTo(current-1, true); }
+  }, {passive:true});
+
+  render();
+  startAutoplay();
+})();
+
+// scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, {threshold:0.15});
+revealEls.forEach(el=>io.observe(el));
 </script>
 
 </body>
