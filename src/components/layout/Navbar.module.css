@@ -50,6 +50,12 @@
   margin-top: 2px;
 }
 
+.right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
 .links {
   display: flex;
   gap: 36px;
@@ -67,8 +73,35 @@
   opacity: 1;
 }
 
+.social {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-left: 24px;
+  border-left: 1px solid var(--stone-line);
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.55;
+  transition: opacity 0.25s ease, color 0.25s ease;
+  color: var(--ink);
+}
+
+.socialLink:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+
 @media (max-width: 720px) {
   .links {
     display: none;
+  }
+
+  .social {
+    padding-left: 0;
+    border-left: none;
   }
 }

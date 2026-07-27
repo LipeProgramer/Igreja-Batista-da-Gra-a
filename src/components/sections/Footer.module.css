@@ -20,6 +20,49 @@
   line-height: 1.15;
 }
 
+/* ---------- REDES SOCIAIS ---------- */
+.socialRow {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--stone-line);
+  flex-wrap: wrap;
+}
+
+.socialLabel {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--stone);
+  white-space: nowrap;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border: 1px solid var(--stone-line);
+  border-radius: var(--radius);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--stone);
+  transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+}
+
+.socialLink:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: var(--paper-2);
+}
+
 .bottom {
   margin-top: 36px;
   display: flex;

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { useState } from 'react';
 import styles from './Navbar.module.css';
+import { SOCIAL_LINKS } from '@/data/social';
 import type { NavLink } from '@/types';
 
 const NAV_LINKS: NavLink[] = [
@@ -45,13 +46,38 @@ export default function Navbar() {
           </div>
         </Link>
 
-        <nav className={styles.links} aria-label="Navegação principal">
-          {NAV_LINKS.map((link) => (
-            <a key={link.href} href={link.href} className={styles.link}>
-              {link.label}
-            </a>
-          ))}
-        </nav>
+        <div className={styles.right}>
+          <nav className={styles.links} aria-label="Navegação principal">
+            {NAV_LINKS.map((link) => (
+              <a key={link.href} href={link.href} className={styles.link}>
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className={styles.social} aria-label="Redes sociais">
+            {SOCIAL_LINKS.map(({ label, href, svgPath }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className={styles.socialLink}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="17"
+                  height="17"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d={svgPath} />
+                </svg>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </motion.nav>
   );
